@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ilija Savić — Talent Sourcing Specialist</title>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet" />
+  <style>
+    /* ============================================
+       COLORS — change --accent to any color
+       to retheme the entire site instantly
+    ============================================ */
+    :root {
+      --bg: #080c10;
+      --surface: #0d1117;
+      --border: #1e2a38;
+      --accent: #ff6b35;   /* ← MAIN COLOR (orange) */
+      --accent2: #ff9a00;  /* ← SECONDARY COLOR */
+      --text: #c9d1d9;
+      --muted: #484f58;
+      --heading: #f0f6fc;
+      --mono: 'JetBrains Mono', monospace;
+      --sans: 'Syne', sans-serif;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--mono);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    /* Custom cursor */
+    .cursor {
+      width: 10px; height: 10px;
+      background: var(--accent);
+      border-radius: 50%;
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: transform 0.1s, background 0.2s;
+      mix-blend-mode: screen;
+    }
+    .cursor-ring {
+      width: 36px; height: 36px;
+      border: 1px solid var(--accent);
+      border-radius: 50%;
+      position: fixed;
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%, -50%);
+      transition: all 0.15s ease;
+      opacity: 0.4;
+    }
+
+    /* Grid background */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,107,53,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,107,53,0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 48px;
+      background: rgba(8,12,16,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: var(--sans);
+      font-weight: 800;
+      font-size: 18px;
+      color: var(--heading);
+      text-decoration: none;
+      letter-spacing: -0.5px;
+    }
+    .nav-logo span { color: var(--accent); }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 12px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* SECTIONS */
+    section { position: relative; z-index: 1; }
+
+    /* HERO */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 120px 48px 80px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .hero-inner { max-width: 680px; }
+
+    .hero-tag {
+      display: inline-block;
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      padding: 4px 12px;
+      border-radius: 2px;
+      margin-bottom: 28px;
+      opacity: 0;
+      animation: fadeUp 0.6s ease forwards;
+    }
+
+    h1 {
+      font-family: var(--sans);
+      font-size: clamp(40px, 7vw, 72px);
+      font-weight: 800;
+      line-height: 1.05;
+      color: var(--heading);
+      letter-spacing: -2px;
+      margin-bottom: 8px;
+      opacity: 0;
+      animation: fadeUp 0.6s ease 0.1s forwards;
+    }
+
+    h1 .accent { color: var(--accent); }
+
+    .hero-subtitle {
+      font-family: var(--sans);
+      font-size: clamp(16px, 3vw, 22px);
+      color: var(--muted);
+      font-weight: 400;
+      margin-bottom: 24px;
+      opacity: 0;
+      animation: fadeUp 0.6s ease 0.2s forwards;
+    }
+
+    .hero-desc {
+      font-size: 14px;
+      color: var(--text);
+      max-width: 540px;
+      margin-bottom: 40px;
+      opacity: 0;
+      animation: fadeUp 0.6s ease 0.3s forwards;
+      line-height: 1.8;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 0.6s ease 0.4s forwards;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 28px;
+      border-radius: 4px;
+      font-family: var(--mono);
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #000;
+      border: 1px solid var(--accent);
+    }
+    .btn-primary:hover {
+      background: transparent;
+      color: var(--accent);
+      box-shadow: 0 0 20px rgba(255,107,53,0.3);
+    }
+    .btn-outline {
+      border: 1px solid var(--border);
+      color: var(--text);
+      background: transparent;
+    }
+    .btn-outline:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .hero-stats {
+      position: absolute;
+      right: 48px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      opacity: 0;
+      animation: fadeIn 1s ease 0.6s forwards;
+    }
+
+    .stat {
+      text-align: right;
+      border-right: 2px solid var(--accent);
+      padding-right: 16px;
+    }
+    .stat-num {
+      font-family: var(--sans);
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--heading);
+      line-height: 1;
+    }
+    .stat-num span { color: var(--accent); }
+    .stat-label {
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    /* Scroll indicator */
+    .scroll-hint {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      animation: fadeIn 1s ease 1s forwards;
+      opacity: 0;
+    }
+    .scroll-line {
+      width: 1px;
+      height: 48px;
+      background: linear-gradient(to bottom, var(--accent), transparent);
+      animation: scrollPulse 1.5s ease-in-out infinite;
+    }
+
+    /* SECTION WRAPPER */
+    .section-wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 100px 48px;
+    }
+
+    .section-label {
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+      max-width: 60px;
+    }
+
+    h2 {
+      font-family: var(--sans);
+      font-size: clamp(28px, 4vw, 44px);
+      font-weight: 800;
+      color: var(--heading);
+      letter-spacing: -1px;
+      margin-bottom: 48px;
+      line-height: 1.1;
+    }
+
+    /* SKILLS */
+    #skills { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 12px;
+    }
+
+    .skill-chip {
+      border: 1px solid var(--border);
+      padding: 10px 16px;
+      border-radius: 4px;
+      font-size: 12px;
+      color: var(--text);
+      background: var(--bg);
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .skill-chip::before { content: '//'; color: var(--accent); font-weight: 700; font-size: 11px; }
+    .skill-chip:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(255,107,53,0.1);
+    }
+
+    /* EXPERIENCE */
+    .exp-list { display: flex; flex-direction: column; gap: 0; }
+
+    .exp-item {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 40px;
+      padding: 40px 0;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+    }
+    .exp-item:first-child { border-top: 1px solid var(--border); }
+
+    .exp-meta { padding-top: 4px; }
+    .exp-period {
+      font-size: 12px;
+      color: var(--accent);
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+    .exp-company {
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .exp-type {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 4px;
+      opacity: 0.7;
+    }
+
+    .exp-content {}
+    .exp-title {
+      font-family: var(--sans);
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--heading);
+      margin-bottom: 16px;
+    }
+    .exp-bullets {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .exp-bullets li {
+      font-size: 13px;
+      color: var(--text);
+      padding-left: 20px;
+      position: relative;
+      line-height: 1.7;
+    }
+    .exp-bullets li::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-size: 11px;
+      top: 3px;
+    }
+
+    /* CONTACT */
+    #contact { background: var(--surface); border-top: 1px solid var(--border); }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: start;
+    }
+
+    .contact-info { display: flex; flex-direction: column; gap: 20px; }
+
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 16px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      background: var(--bg);
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .contact-item:hover {
+      border-color: var(--accent);
+      box-shadow: 0 0 20px rgba(255,107,53,0.08);
+    }
+    .contact-icon {
+      width: 36px; height: 36px;
+      background: rgba(255,107,53,0.08);
+      border: 1px solid rgba(255,107,53,0.2);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+    .contact-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
+    .contact-val { font-size: 13px; color: var(--heading); margin-top: 2px; }
+
+    /* Form */
+    .form { display: flex; flex-direction: column; gap: 16px; }
+
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-group label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
+    .form-group input, .form-group textarea {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 12px 16px;
+      color: var(--heading);
+      font-family: var(--mono);
+      font-size: 13px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .form-group input:focus, .form-group textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 2px rgba(255,107,53,0.08);
+    }
+    .form-group textarea { resize: vertical; min-height: 120px; }
+
+    .form-submit {
+      background: var(--accent);
+      color: #000;
+      border: none;
+      padding: 14px 32px;
+      font-family: var(--mono);
+      font-size: 13px;
+      font-weight: 700;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.2s;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    .form-submit:hover {
+      background: transparent;
+      color: var(--accent);
+      box-shadow: 0 0 0 1px var(--accent), 0 0 20px rgba(255,107,53,0.2);
+    }
+
+    .form-note { font-size: 11px; color: var(--muted); margin-top: -8px; }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 24px 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      color: var(--muted);
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.3; transform: scaleY(1); }
+      50% { opacity: 1; transform: scaleY(1.1); }
+    }
+
+    /* Reveal on scroll */
+    .reveal {
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Scanline effect */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0,0,0,0.03) 2px,
+        rgba(0,0,0,0.03) 4px
+      );
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    @media (max-width: 768px) {
+      nav { padding: 16px 24px; }
+      .nav-links { display: none; }
+      #hero { padding: 100px 24px 60px; }
+      .hero-stats { display: none; }
+      .section-wrap { padding: 70px 24px; }
+      .exp-item { grid-template-columns: 1fr; gap: 12px; }
+      .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+      footer { flex-direction: column; gap: 8px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+
+  <!-- NAV -->
+  <!-- ============================================
+       NAV — edit links and logo initials here
+  ============================================ -->
+  <nav>
+    <a href="#hero" class="nav-logo">IS<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- ============================================
+       HERO — your name, title, tagline, and stats
+       Edit: name, subtitle, hero-desc text, stat numbers
+  ============================================ -->
+  <section id="about">
+    <div id="hero">
+      <div class="hero-inner">
+        <div class="hero-tag">Available for remote opportunities</div>
+        <h1>Ilija<br><span class="accent">Savić</span></h1>
+        <div class="hero-subtitle">Talent Sourcing Specialist</div>
+        <p class="hero-desc">
+          Specialist in sourcing Tech, SEO, Content and Digital talent across global markets.
+          I bring a data-driven approach, Boolean mastery, and AI-augmented workflows to build pipelines that actually work.
+        </p>
+        <div class="hero-cta">
+          <a href="#contact" class="btn btn-primary">Get in touch →</a>
+          <a href="#experience" class="btn btn-outline">View experience</a>
+          <a href="https://linkedin.com/in/ilija-savic147" target="_blank" class="btn btn-outline">LinkedIn ↗</a>
+        </div>
+      </div>
+
+      <div class="hero-stats">
+        <div class="stat">
+          <div class="stat-num">2<span>+</span></div>
+          <div class="stat-label">Years Sourcing</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">7<span>+</span></div>
+          <div class="stat-label">Years Research</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">3</div>
+          <div class="stat-label">Industries</div>
+        </div>
+      </div>
+
+      <div class="scroll-hint">
+        <span>Scroll</span>
+        <div class="scroll-line"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       SKILLS — add or remove skill-chip divs
+       Each chip: <div class="skill-chip">Skill Name</div>
+  ============================================ -->
+  <section id="skills">
+    <div class="section-wrap">
+      <div class="section-label">Capabilities</div>
+      <h2>Skills & Tools</h2>
+      <div class="skills-grid reveal">
+        <div class="skill-chip">Boolean Search</div>
+        <div class="skill-chip">Talent Sourcing</div>
+        <div class="skill-chip">Reverse Sourcing</div>
+        <div class="skill-chip">X-Ray Search</div>
+        <div class="skill-chip">Recruitment</div>
+        <div class="skill-chip">Market Analysis</div>
+        <div class="skill-chip">Competitor Research</div>
+        <div class="skill-chip">Process Automation</div>
+        <div class="skill-chip">AI Integration</div>
+        <div class="skill-chip">Analytical Thinking</div>
+        <div class="skill-chip">Google Sheets</div>
+        <div class="skill-chip">Google App Scripts</div>
+        <div class="skill-chip">Pipedream</div>
+        <div class="skill-chip">TeamTailor</div>
+        <div class="skill-chip">LinkedIn Recruiter</div>
+        <div class="skill-chip">Airtable</div>
+        <div class="skill-chip">Negotiation</div>
+        <div class="skill-chip">Trello</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       EXPERIENCE — add/remove jobs by copying an exp-item block
+       Each job: period, company, type, title, bullet points
+       To add a new job: copy one <div class="exp-item"> block and paste above the others
+  ============================================ -->
+  <section id="experience">
+    <div class="section-wrap">
+      <div class="section-label">Career</div>
+      <h2>Experience</h2>
+      <div class="exp-list">
+
+        <div class="exp-item reveal">
+          <div class="exp-meta">
+            <div class="exp-period">10/2025 - Present</div>
+            <div class="exp-company">ClickOut Media</div>
+            <div class="exp-type">Full time, remote</div>
+          </div>
+          <div class="exp-content">
+            <div class="exp-title">Talent Sourcing Partner</div>
+            <ul class="exp-bullets">
+              <li>Collaborating with recruiters and hiring managers to shape sourcing strategies for Tech, Content, SEO, and digital roles.</li>
+              <li>Actively sourcing and engaging passive candidates across global markets through LinkedIn, Upwork, X-Ray search, and industry communities.</li>
+              <li>Researching and mapping talent pools across global markets and competitors within iGaming, Crypto, Sports Betting, and FinTech sectors.</li>
+              <li>Building automation of processes and custom agentic AI into everyday workflows using Pipedream, Google App Scripts, and OpenAI Agent Builder.</li>
+              <li>Maintaining accurate candidate data in TeamTailor ATS and internal sourcing trackers.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="exp-item reveal">
+          <div class="exp-meta">
+            <div class="exp-period">12/2023 - 09/2025</div>
+            <div class="exp-company">Better Collective A/S</div>
+            <div class="exp-type">Full-time, hybrid</div>
+          </div>
+          <div class="exp-content">
+            <div class="exp-title">Content Operations Coordinator</div>
+            <ul class="exp-bullets">
+              <li>Sourcing and screening candidates with iGaming background using Upwork, LinkedIn, and Boolean search.</li>
+              <li>Building pipelines for content-focused roles: SEO writers, SEO managers, editors, and content uploaders.</li>
+              <li>Collaborating with hiring managers to align candidate profiles with content goals.</li>
+              <li>Coordinating tasks between in-house and external (freelance) team members.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="exp-item reveal">
+          <div class="exp-meta">
+            <div class="exp-period">10/2018 - 12/2023</div>
+            <div class="exp-company">RavenPack International S.L.</div>
+            <div class="exp-type">Full-time freelance</div>
+          </div>
+          <div class="exp-content">
+            <div class="exp-title">Product Database Researcher</div>
+            <ul class="exp-bullets">
+              <li>Oversaw a team of three researchers on a long-term pharmaceutical data project covering drug approvals, licensing agreements, and M&amp;A activity.</li>
+              <li>Designed and implemented SOPs that improved workflow efficiency and data consistency across the team.</li>
+              <li>Performed in-depth web research, analytical review, and structured data extraction from scientific, regulatory, and financial sources.</li>
+              <li>Assisted the team lead in sourcing freelancers to provide additional capacity during high-volume periods.</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       CONTACT — update email, LinkedIn, Upwork links
+       The form opens your email client automatically (no backend needed)
+       To change the email: update both the href and the mailto in the JS handleSubmit function
+  ============================================ -->
+  <section id="contact">
+    <div class="section-wrap">
+      <div class="section-label">Get in touch</div>
+      <h2>Let's talk.</h2>
+      <div class="contact-grid">
+
+        <div class="contact-info reveal">
+          <a href="#contact" class="contact-item" onclick="window.location.href='mai'+'lto:'+'ilijasavicwork'+'@'+'gmail.com'; return false;">
+            <div class="contact-icon">✉</div>
+            <div>
+              <div class="contact-label">Email</div>
+              <div class="contact-val">ilijasavicwork <!-- -->@<!-- --> gmail.com</div>
+            </div>
+          </a>
+          <a href="https://linkedin.com/in/ilija-savic147" target="_blank" class="contact-item">
+            <div class="contact-icon">in</div>
+            <div>
+              <div class="contact-label">LinkedIn</div>
+              <div class="contact-val">linkedin.com/in/ilija-savic147</div>
+            </div>
+          </a>
+          <a href="https://upwork.com/freelancers/~015fadde818fdf3a47" target="_blank" class="contact-item">
+            <div class="contact-icon">↗</div>
+            <div>
+              <div class="contact-label">Upwork</div>
+              <div class="contact-val">View Upwork profile</div>
+            </div>
+          </a>
+          <div class="contact-item" style="text-decoration:none; cursor:default;">
+            <div class="contact-icon">📍</div>
+            <div>
+              <div class="contact-label">Location</div>
+              <div class="contact-val">Niš, Serbia — Open to remote Europe</div>
+            </div>
+          </div>
+        </div>
+
+        <form class="form reveal" onsubmit="handleSubmit(event)">
+          <div class="form-group">
+            <label>Your name</label>
+            <input type="text" placeholder="Jane Smith" required />
+          </div>
+          <div class="form-group">
+            <label>Your email</label>
+            <input type="email" placeholder="jane@company.com" required />
+          </div>
+          <div class="form-group">
+            <label>Message</label>
+            <textarea placeholder="Hi Ilija, I have an opportunity..." required></textarea>
+          </div>
+          <p class="form-note">* Form opens your email client with a pre-filled message</p>
+          <button type="submit" class="form-submit">Send message →</button>
+        </form>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       FOOTER — edit the name and location text
+  ============================================ -->
+  <footer>
+    <span>Ilija Savić — Talent Sourcing Specialist</span>
+    <span style="color: var(--accent);">Niš, Serbia</span>
+    <span>Built with HTML/CSS/JS · Hosted on GitHub Pages</span>
+  </footer>
+
+  <script>
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.05, rootMargin: '0px 0px -50px 0px' });
+    reveals.forEach(r => observer.observe(r));
+
+    // Fallback: reveal all after 1.5s in case observer doesn't fire
+    setTimeout(() => {
+      reveals.forEach(r => r.classList.add('visible'));
+    }, 1500);
+
+    // Contact form - opens mailto
+    function handleSubmit(e) {
+      e.preventDefault();
+      const name = e.target.querySelector('input[type=text]').value;
+      const email = e.target.querySelector('input[type=email]').value;
+      const msg = e.target.querySelector('textarea').value;
+      const subject = encodeURIComponent(`Opportunity from ${name}`);
+      const body = encodeURIComponent(`Hi Ilija,\n\n${msg}\n\nBest,\n${name}\n${email}`);
+      window.location.href = `mailto:ilijasavicwork@gmail.com?subject=${subject}&body=${body}`;
+    }
+
+    // Active nav link on scroll
+    const sections = document.querySelectorAll('section');
+    const navLinks = document.querySelectorAll('.nav-links a');
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.fo
