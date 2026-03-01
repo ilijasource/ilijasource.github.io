@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0048)file:///C:/Users/Chillque/Downloads/index_4.html -->
+<!-- saved from url=(0048)file:///C:/Users/Chillque/Downloads/index_6.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -520,6 +520,139 @@
       z-index: 9999;
     }
 
+
+    /* AI TOOLS SECTION */
+    #tools { border-top: 1px solid var(--border); }
+
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 24px;
+    }
+
+    .tool-card {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 28px;
+      background: var(--surface);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .tool-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--accent);
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    .tool-card:hover {
+      border-color: var(--accent);
+      box-shadow: 0 0 30px rgba(255,107,53,0.08);
+    }
+    .tool-card:hover::before { opacity: 1; }
+
+    .tool-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .tool-icon {
+      width: 44px; height: 44px;
+      background: rgba(255,107,53,0.1);
+      border: 1px solid rgba(255,107,53,0.25);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .tool-status {
+      font-size: 10px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-weight: 600;
+    }
+    .status-dev {
+      background: rgba(255,107,53,0.1);
+      color: var(--accent);
+      border: 1px solid rgba(255,107,53,0.3);
+    }
+    .status-live {
+      background: rgba(76,175,80,0.1);
+      color: #4caf50;
+      border: 1px solid rgba(76,175,80,0.3);
+    }
+
+    .tool-name {
+      font-family: var(--sans);
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--heading);
+      line-height: 1.2;
+    }
+
+    .tool-desc {
+      font-size: 13px;
+      color: var(--text);
+      line-height: 1.7;
+      flex: 1;
+    }
+
+    .tool-stat {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255,107,53,0.05);
+      border: 1px solid rgba(255,107,53,0.15);
+      border-radius: 6px;
+      padding: 10px 14px;
+      font-size: 12px;
+      color: var(--text);
+    }
+    .tool-stat-num {
+      font-family: var(--sans);
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--accent);
+      line-height: 1;
+    }
+
+    .tool-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .badge {
+      font-size: 10px;
+      letter-spacing: 0.5px;
+      padding: 3px 8px;
+      border-radius: 3px;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      background: var(--bg);
+      text-transform: uppercase;
+    }
+
+    .tool-footer {
+      padding-top: 4px;
+      border-top: 1px solid var(--border);
+      font-size: 11px;
+      color: var(--heading);
+      font-style: italic;
+    }
+
     @media (max-width: 768px) {
       nav { padding: 16px 24px; }
       .nav-links { display: none; }
@@ -540,12 +673,13 @@
        NAV — edit links and logo initials here
   ============================================ -->
   <nav>
-    <a href="file:///C:/Users/Chillque/Downloads/index_4.html#hero" class="nav-logo">IS<span>.</span></a>
+    <a href="file:///C:/Users/Chillque/Downloads/index_6.html#hero" class="nav-logo">IS<span>.</span></a>
     <ul class="nav-links">
-      <li><a href="file:///C:/Users/Chillque/Downloads/index_4.html#about" onclick="document.getElementById(&#39;about&#39;).scrollIntoView({behavior:&#39;smooth&#39;});return false;">About</a></li>
-      <li><a href="file:///C:/Users/Chillque/Downloads/index_4.html#skills" onclick="document.getElementById(&#39;skills&#39;).scrollIntoView({behavior:&#39;smooth&#39;});return false;">Skills</a></li>
-      <li><a href="file:///C:/Users/Chillque/Downloads/index_4.html#experience" onclick="document.getElementById(&#39;experience&#39;).scrollIntoView({behavior:&#39;smooth&#39;});return false;">Experience</a></li>
-      <li><a href="file:///C:/Users/Chillque/Downloads/index_4.html#contact" onclick="document.getElementById(&#39;contact&#39;).scrollIntoView({behavior:&#39;smooth&#39;});return false;">Contact</a></li>
+      <li><a href="file:///C:/Users/Chillque/Downloads/index_6.html#about" onclick="document.getElementById(&#39;about&#39;).scrollIntoView({behavior:&#39;smooth&#39;});return false;">About</a></li>
+      <li><a href="file:///C:/Users/Chillque/Downloads/index_6.html#skills" onclick="document.getElementById(&#39;skills&#39;).scrollIntoView({behavior:&#39;smooth&#39;});return false;">Skills</a></li>
+      <li><a href="file:///C:/Users/Chillque/Downloads/index_6.html#experience" onclick="document.getElementById(&#39;experience&#39;).scrollIntoView({behavior:&#39;smooth&#39;});return false;">Experience</a></li>
+      <li><a href="file:///C:/Users/Chillque/Downloads/index_6.html#tools" onclick="document.getElementById(&#39;tools&#39;).scrollIntoView({behavior:&#39;smooth&#39;});return false;">Tools</a></li>
+      <li><a href="file:///C:/Users/Chillque/Downloads/index_6.html#contact" onclick="document.getElementById(&#39;contact&#39;).scrollIntoView({behavior:&#39;smooth&#39;});return false;">Contact</a></li>
     </ul>
   </nav>
 
@@ -563,9 +697,9 @@
           Specialist in sourcing Tech and non-tech digital talent across global markets (EU and US focus). I bring a data-driven approach, Boolean mastery, and AI-augmented workflows and tools to build pipelines that actually work.
         </p>
         <div class="hero-cta">
-          <a href="file:///C:/Users/Chillque/Downloads/index_4.html#contact" class="btn btn-primary" onclick="document.getElementById(&#39;contact&#39;).scrollIntoView({behavior:&#39;smooth&#39;});return false;">Get in touch →</a>
-          <a href="file:///C:/Users/Chillque/Downloads/index_4.html#experience" class="btn btn-outline" onclick="document.getElementById(&#39;experience&#39;).scrollIntoView({behavior:&#39;smooth&#39;});return false;">View experience</a>
-          <a href="https://linkedin.com/in/ilija-savic147" target="_blank" class="btn btn-outline">LinkedIn ↗</a>
+          <a href="file:///C:/Users/Chillque/Downloads/index_6.html#contact" class="btn btn-primary" onclick="document.getElementById(&#39;contact&#39;).scrollIntoView({behavior:&#39;smooth&#39;});return false;">Get in touch →</a>
+          <a href="file:///C:/Users/Chillque/Downloads/index_6.html#experience" class="btn btn-outline" onclick="document.getElementById(&#39;experience&#39;).scrollIntoView({behavior:&#39;smooth&#39;});return false;">View experience</a>
+          <a href="file:///C:/Users/Chillque/Downloads/index_6.html#tools" class="btn btn-outline" onclick="document.getElementById(&#39;tools&#39;).scrollIntoView({behavior:&#39;smooth&#39;});return false;">View Tools</a>
         </div>
       </div>
 
@@ -579,7 +713,7 @@
           <div class="stat-label">Years Research</div>
         </div>
         <div class="stat">
-          <div class="stat-num">3</div>
+          <div class="stat-num">5<span>+</span></div>
           <div class="stat-label">Industries</div>
         </div>
       </div>
@@ -703,6 +837,87 @@
               <li>Identified and connected heart failure support groups across the UK and the US for a healthcare client.</li>
             </ul>
           </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================
+       AI TOOLS — add/edit tool cards here
+       Each card: tool-icon, tool-name, tool-desc, tool-stat, badges
+  ============================================ -->
+  <section id="tools">
+    <div class="section-wrap">
+      <div class="section-label">What I Build</div>
+      <h2>AI-Powered Tools &amp; Projects</h2>
+      <div class="tools-grid">
+
+        <!-- CARD 1: Sourcing Highlighter -->
+        <div class="tool-card reveal">
+          <div class="tool-header">
+            <div class="tool-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 11-6 6v3h9l3-3"></path><path d="m22 12-4.6 4.6a2 2 0 0 1-2.8 0l-5.2-5.2a2 2 0 0 1 0-2.8L14 4"></path></svg>
+            </div>
+            <span class="tool-status status-live">Live</span>
+          </div>
+          <div class="tool-name">Sourcing Highlighter</div>
+          <div class="tool-desc">A totally customizable Chrome extension that automatically highlights sourcing-relevant keywords on any webpage: candidate skills, job titles, restricted geos, or whatever else is important to you, making passive candidate identification faster and more accurate during research.</div>
+          <div class="tool-badges">
+            <span class="badge">Chrome Extension</span>
+            <span class="badge">JavaScript</span>
+            <span class="badge">Claude API</span>
+          </div>
+          <div class="tool-footer">Built to speed up daily sourcing research workflows</div>
+        </div>
+
+        <!-- CARD 2: Boolean Generator -->
+        <div class="tool-card reveal">
+          <div class="tool-header">
+            <div class="tool-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+            </div>
+            <span class="tool-status status-live">Live</span>
+          </div>
+          <div class="tool-name">Boolean Search Generator</div>
+          <div class="tool-desc">An AI-powered tool that generates optimised Boolean and X-Ray search strings for any role or market. Queries are saved to a Supabase database, building a growing library of reusable, refined search strings over time while tracking sourcing metrics and KPIs.</div>
+          <div class="tool-badges">
+            <span class="badge">Claude API</span>
+            <span class="badge">Supabase</span>
+            <span class="badge">Pipedream</span>
+          </div>
+          <div class="tool-footer">Personal library of 1k+ saved Boolean queries and growing</div>
+        </div>
+
+        <!-- CARD 3: Talent Intelligence Scraper -->
+        <div class="tool-card reveal">
+          <div class="tool-header">
+            <div class="tool-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path><path d="M11 8v6"></path><path d="M8 11h6"></path></svg>
+            </div>
+            <span class="tool-status status-dev">In Development</span>
+          </div>
+          <div class="tool-name">Talent Intelligence Scraper</div>
+          <div class="tool-desc">An automated web scraper that maps passive candidate pools and tracks M&amp;A activity, licensing deals, and talent movements across iGaming, Crypto and FinTech markets, turning public data into actionable sourcing intelligence.</div>
+          <div class="tool-stat">
+            <div>
+              <div class="tool-stat-num">480<span style="color:var(--text);font-size:14px;">+</span></div>
+              <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;">Passive candidates</div>
+            </div>
+            <div style="width:1px;height:32px;background:var(--border);"></div>
+            <div>
+              <div class="tool-stat-num">180<span style="color:var(--text);font-size:14px;">+</span></div>
+              <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;">M&amp;A deals tracked</div>
+            </div>
+          </div>
+          <div class="tool-badges">
+            <span class="badge">Pipedream</span>
+            <span class="badge">Google Sheets</span>
+            <span class="badge">Google Apps Script</span>
+            <span class="badge">Claude API</span>
+          </div>
+          <div class="tool-footer">480+ candidates and 180+ deals collected from January 2026 data alone</div>
         </div>
 
       </div>
